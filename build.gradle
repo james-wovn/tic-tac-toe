@@ -1,0 +1,25 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group 'com.jamesball.learnjava.tictactoe'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '15'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+application {
+    mainClass = 'com.jamesball.learn.tictactoe.TicTacToeApplication'
+}
+
+test {
+    useJUnitPlatform()
+}
