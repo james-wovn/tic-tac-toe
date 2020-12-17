@@ -21,20 +21,19 @@ public class BoardTest {
     }
 
     @Test
-    public void whenBoardIsInitialised_thenItIsInitialisedInTheCorrectState() {
+    public void whenBoardIsInitialised_thenItIsHasTheCorrectDimensions() {
         assertNotNull(board.getBoard());
 
-        String[] marks = {};
-
-        for (Square[] squares : board.getBoard()) {
-            for (Square square : squares) {
-                String[] newMarks = Arrays.copyOf(marks, marks.length + 1);
-                newMarks[newMarks.length - 1] = square.getMark();
-                marks = newMarks;
-            }
-        }
+        String[] marks = getListOfMarks();
 
         assertEquals(SIZE * SIZE, marks.length);
+
+        assertArrayEquals(new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "}, marks);
+    }
+
+    @Test
+    public void whenBoardIsInitialised_thenAllSquaresAreUnmarked() {
+        String[] marks = getListOfMarks();
 
         assertArrayEquals(new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "}, marks);
     }
@@ -51,5 +50,19 @@ public class BoardTest {
                 2 |   |   |   |
                   +---+---+---+
                 """, board.toString());
+    }
+
+    private String[] getListOfMarks() {
+        String[] marks = {};
+
+        for (Square[] squares : board.getBoard()) {
+            for (Square square : squares) {
+                String[] newMarks = Arrays.copyOf(marks, marks.length + 1);
+                newMarks[newMarks.length - 1] = square.getMark();
+                marks = newMarks;
+            }
+        }
+
+        return marks;
     }
 }
