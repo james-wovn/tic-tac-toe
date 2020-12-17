@@ -6,5 +6,7 @@ class TicTacToeApplication {
 
     public static void main(String[] args) {
         System.out.println(board.toString());
+        board.getSquare(new Position(0, 0)).setMark("X");
+        System.out.println(board.toString());
     }
 }
