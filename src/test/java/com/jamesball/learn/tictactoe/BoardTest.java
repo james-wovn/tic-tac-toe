@@ -1,38 +1,46 @@
 package com.jamesball.learn.tictactoe;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class BoardTest {
 
-    private static Board board;
+    private static final int SIZE = 3;
 
-    private static final int BOARD_SIZE = 3;
+    private Board board;
 
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void setup() {
         board = new Board();
     }
 
     @Test
-    public void shouldHaveCorrectLayout() {
-        assertArrayEquals(board.getBoard(), new String[][]{{" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}});
-    }
+    public void whenBoardIsInitialised_thenItIsInitialisedInTheCorrectState() {
+        assertNotNull(board.getBoard());
 
-    @Test
-    public void shouldHaveEmptyMarkAtAllBoardSpaces() {
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int column = 0; column < BOARD_SIZE; column++) {
-                assertEquals(" ", board.getMarkAtBoardSpace(row, column));
+        String[] marks = {};
+
+        for (Square[] squares : board.getBoard()) {
+            for (Square square : squares) {
+                String[] newMarks = Arrays.copyOf(marks, marks.length + 1);
+                newMarks[newMarks.length - 1] = square.getMark();
+                marks = newMarks;
             }
         }
+
+        assertEquals(SIZE * SIZE, marks.length);
+
+        assertArrayEquals(new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "}, marks);
     }
 
     @Test
-    public void shouldHaveCorrectAppearance() {
+    public void whenBoardIsPrinted_thenTheFormatShouldBeCorrect() {
         assertEquals("""
                     0   1   2
                   +---+---+---+
