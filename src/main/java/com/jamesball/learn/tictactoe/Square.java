@@ -11,12 +11,12 @@ public class Square {
         return mark;
     }
 
-    public void setMark(String mark) throws SquareIsMarkedException {
+    public void setMark(String mark) throws IsMarkedException {
         if (this.mark.equals(" ")) {
             this.mark = mark;
         }
         else {
-            throw new SquareIsMarkedException();
+            throw new IsMarkedException();
         }
     }
 }

@@ -19,16 +19,16 @@ public class SquareTest {
     }
 
     @Test
-    public void whenNotMarked_thenCanBeMarked() {
+    public void whenUnmarked_thenSetMark() {
         square.setMark(PLAYER_1_MARK);
 
         assertEquals(PLAYER_1_MARK, square.getMark());
     }
 
     @Test
-    public void whenMarked_thenCannotBeMarked() {
+    public void whenMarked_thenThrowIsMarkedException() {
         square.setMark(PLAYER_1_MARK);
 
-        assertThrows(SquareIsMarkedException.class, () -> square.setMark(PLAYER_2_MARK));
+        assertThrows(IsMarkedException.class, () -> square.setMark(PLAYER_2_MARK));
     }
 }
