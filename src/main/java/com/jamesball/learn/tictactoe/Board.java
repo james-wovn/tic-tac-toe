@@ -1,52 +1,28 @@
 package com.jamesball.learn.tictactoe;
 
+import java.util.Arrays;
+
 public class Board {
 
-    private static final int SIZE = 3;
-    private static final String OUTPUT_FORMAT = """
-                    0   1   2
-                  +---+---+---+
-                0 | %s | %s | %s |
-                  +---+---+---+
-                1 | %s | %s | %s |
-                  +---+---+---+
-                2 | %s | %s | %s |
-                  +---+---+---+
-                """;
-
-    private final Square[][] board = new Square[SIZE][SIZE];
-
-    {
-        for (int row = 0; row < SIZE; row++) {
-            for (int column = 0; column < SIZE; column++) {
-                board[row][column] = new Square();
-            }
-        }
-    }
+    private final BoardSquare[] squares = new BoardSquare[]{
+            new BoardSquare("a1"), new BoardSquare("b1"), new BoardSquare("c1"),
+            new BoardSquare("a2"), new BoardSquare("b2"), new BoardSquare("c2"),
+            new BoardSquare("a3"), new BoardSquare("b3"), new BoardSquare("c3")
+    };
 
     public Board() {
     }
 
-    public Square[][] getBoard() {
-        return board;
+    public BoardSquare getSquare(String coordinate) throws InvalidCoordinateException {
+        return Arrays.stream(squares)
+                .filter(square -> square.getId().equals(coordinate))
+                .findFirst()
+                .orElseThrow(InvalidCoordinateException::new);
     }
 
-    public Square getSquare(Position position) {
-        return board[position.getRow()][position.getColumn()];
-    }
-
-    @Override
-    public String toString() {
-        return OUTPUT_FORMAT.formatted(
-                getSquare(new Position(0, 0)).getMark(),
-                getSquare(new Position(0, 1)).getMark(),
-                getSquare(new Position(0, 2)).getMark(),
-                getSquare(new Position(1, 0)).getMark(),
-                getSquare(new Position(1, 1)).getMark(),
-                getSquare(new Position(1, 2)).getMark(),
-                getSquare(new Position(2, 0)).getMark(),
-                getSquare(new Position(2, 1)).getMark(),
-                getSquare(new Position(2, 2)).getMark()
-        );
+    public String[] getMarks() {
+        return Arrays.stream(squares)
+                .map(BoardSquare::getMark)
+                .toArray(String[]::new);
     }
 }

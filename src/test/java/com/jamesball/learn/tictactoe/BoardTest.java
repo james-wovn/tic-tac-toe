@@ -3,15 +3,9 @@ package com.jamesball.learn.tictactoe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
-
-    private static final int SIZE = 3;
 
     private Board board;
 
@@ -21,48 +15,21 @@ public class BoardTest {
     }
 
     @Test
-    public void whenBoardIsInitialised_thenItIsHasTheCorrectDimensions() {
-        assertNotNull(board.getBoard());
+    public void whenCoordinateIsValid_thenReturnSquare() {
+        String[] coordinates = new String[]{"a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2", "c3"};
 
-        String[] marks = getListOfMarks();
-
-        assertEquals(SIZE * SIZE, marks.length);
-
-        assertArrayEquals(new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "}, marks);
-    }
-
-    @Test
-    public void whenBoardIsInitialised_thenAllSquaresAreUnmarked() {
-        String[] marks = getListOfMarks();
-
-        assertArrayEquals(new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "}, marks);
-    }
-
-    @Test
-    public void whenBoardIsPrinted_thenTheFormatShouldBeCorrect() {
-        assertEquals("""
-                    0   1   2
-                  +---+---+---+
-                0 |   |   |   |
-                  +---+---+---+
-                1 |   |   |   |
-                  +---+---+---+
-                2 |   |   |   |
-                  +---+---+---+
-                """, board.toString());
-    }
-
-    private String[] getListOfMarks() {
-        String[] marks = {};
-
-        for (Square[] squares : board.getBoard()) {
-            for (Square square : squares) {
-                String[] newMarks = Arrays.copyOf(marks, marks.length + 1);
-                newMarks[newMarks.length - 1] = square.getMark();
-                marks = newMarks;
-            }
+        for (String coordinate : coordinates) {
+            assertEquals(BoardSquare.class, board.getSquare(coordinate).getClass());
         }
+    }
 
-        return marks;
+    @Test
+    public void whenCoordinateIsInvalid_thenThrowInvalidCoordinateException() {
+        assertThrows(InvalidCoordinateException.class, () -> board.getSquare("z9"));
+    }
+
+    @Test
+    public void whenGetMarks_thenReturnArrayOfStrings() {
+        assertArrayEquals(new String[9], board.getMarks());
     }
 }
