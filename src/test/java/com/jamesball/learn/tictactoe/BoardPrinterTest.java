@@ -22,7 +22,7 @@ public class BoardPrinterTest {
     }
 
     @Test
-    public void whenPrinted_thenFormatIsCorrect() {
+    public void whenPrinted_thenOutputIsCorrect() {
         String[] marks = new String[]{"X", null, null, null, "O", null, null, null, "X"};
 
         printer.print(marks);
