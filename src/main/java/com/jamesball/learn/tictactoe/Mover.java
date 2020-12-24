@@ -10,7 +10,7 @@ public class Mover {
         this.parser = parser;
     }
 
-    public void move(Board board, char mark) {
+    public void move(Board board, PlayerMark mark) {
         String input = asker.ask("Enter square (1-9): ");
 
         while (true) {

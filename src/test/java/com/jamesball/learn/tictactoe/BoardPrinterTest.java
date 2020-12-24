@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static com.jamesball.learn.tictactoe.PlayerMark.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -14,33 +15,35 @@ public class BoardPrinterTest {
 
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
 
+    private Board board;
     private BoardPrinter printer;
 
     @BeforeEach
-    public void setUp() {
+    public void beforeEach() {
         System.setOut(new PrintStream(output));
 
+        board = mock(Board.class);
         printer = new BoardPrinter(System.out);
     }
 
     @Test
     public void whenPrinted_thenFormatIsCorrect() {
-        Board board = mock(Board.class);
-
-        board.setBoard();
-
-        when(board.getBoard()).thenReturn(new char[]{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '});
+        when(board.getBoard()).thenReturn(new PlayerMark[]{
+                PLAYER_1, UNMARKED, UNMARKED,
+                UNMARKED, PLAYER_2, UNMARKED,
+                UNMARKED, UNMARKED, PLAYER_1
+        });
 
         printer.print(board.getBoard());
 
         assertEquals("""
-                -----+-----+-----
-                |    |     |    |
-                -----+-----+-----
-                |    |     |    |
-                -----+-----+-----
-                |    |     |    |
-                -----+-----+-----
+                +-----+-----+-----+
+                |  X  |     |     |
+                +-----+-----+-----+
+                |     |  O  |     |
+                +-----+-----+-----+
+                |     |     |  X  |
+                +-----+-----+-----+
                 """, output.toString());
     }
 }

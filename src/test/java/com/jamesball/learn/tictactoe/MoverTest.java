@@ -3,11 +3,10 @@ package com.jamesball.learn.tictactoe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.jamesball.learn.tictactoe.PlayerMark.*;
 import static org.mockito.Mockito.*;
 
 public class MoverTest {
-
-    private static final char MARKED_SQUARE = 'X';
 
     private Mover mover;
     private MoveAsker asker;
@@ -15,7 +14,7 @@ public class MoverTest {
     private Board board;
 
     @BeforeEach
-    public void setup() {
+    public void beforeEach() {
         asker = mock(MoveAsker.class);
         parser = mock(MoveParser.class);
         board = mock(Board.class);
@@ -29,11 +28,11 @@ public class MoverTest {
 
         when(parser.parse("1")).thenReturn(0);
 
-        mover.move(board, MARKED_SQUARE);
+        mover.move(board, PLAYER_1);
 
         verify(asker).ask("Enter square (1-9): ");
         verify(parser).parse("1");
-        verify(board).setMark(0, MARKED_SQUARE);
+        verify(board).setMark(0, PLAYER_1);
     }
 
     @Test
@@ -44,12 +43,12 @@ public class MoverTest {
         when(parser.parse("10")).thenThrow(InvalidInputException.class);
         when(parser.parse("1")).thenReturn(0);
 
-        mover.move(board, MARKED_SQUARE);
+        mover.move(board, PLAYER_1);
 
         verify(asker).ask("Enter square (1-9): ");
         verify(parser).parse("10");
         verify(asker).ask("Invalid square, try again: ");
         verify(parser).parse("1");
-        verify(board).setMark(0, MARKED_SQUARE);
+        verify(board).setMark(0, PLAYER_1);
     }
 }

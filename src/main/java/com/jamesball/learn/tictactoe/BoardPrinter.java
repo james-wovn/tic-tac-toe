@@ -10,19 +10,27 @@ public class BoardPrinter {
         this.out = out;
     }
 
-    public void print(char[] board) {
+    public void print(PlayerMark[] board) {
         out.printf("""
-                -----+-----+-----
-                | %c  |  %c  |  %c |
-                -----+-----+-----
-                | %c  |  %c  |  %c |
-                -----+-----+-----
-                | %c  |  %c  |  %c |
-                -----+-----+-----  
+                +-----+-----+-----+
+                |  %c  |  %c  |  %c  |
+                +-----+-----+-----+
+                |  %c  |  %c  |  %c  |
+                +-----+-----+-----+
+                |  %c  |  %c  |  %c  |
+                +-----+-----+-----+  
                 """,
-                board[0], board[1], board[2],
-                board[3], board[4], board[5],
-                board[6], board[7], board[8]
+                parseMark(board[0]), parseMark(board[1]), parseMark(board[2]),
+                parseMark(board[3]), parseMark(board[4]), parseMark(board[5]),
+                parseMark(board[6]), parseMark(board[7]), parseMark(board[8])
         );
+    }
+
+    private char parseMark(PlayerMark mark) {
+        return switch (mark) {
+            case UNMARKED -> ' ';
+            case PLAYER_1 -> 'X';
+            case PLAYER_2 -> 'O';
+        };
     }
 }

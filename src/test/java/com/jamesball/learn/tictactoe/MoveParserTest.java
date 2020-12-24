@@ -12,7 +12,7 @@ public class MoveParserTest {
     private MoveParser parser;
 
     @BeforeEach
-    public void setUp() {
+    public void beforeEach() {
         parser = new MoveParser("^[1-9]$");
     }
 

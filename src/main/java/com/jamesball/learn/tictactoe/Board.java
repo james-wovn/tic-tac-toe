@@ -1,41 +1,41 @@
 package com.jamesball.learn.tictactoe;
 
+import static com.jamesball.learn.tictactoe.PlayerMark.*;
+
 public class Board {
 
-    private static final char UNMARKED_SQUARE = ' ';
+    private static final int SIZE = 9;
 
-    private char[] board;
+    private PlayerMark[] board;
 
     public Board() {
     }
 
-    public char[] getBoard() {
+    public static int getSize() {
+        return SIZE;
+    }
+
+    public PlayerMark[] getBoard() {
         return board;
     }
 
     public void setBoard() {
-        final int number_of_squares = 9;
-
-        board = new char[number_of_squares];
-        for (int square = 0; square < number_of_squares; square++) {
-            board[square] = UNMARKED_SQUARE;
+        board = new PlayerMark[SIZE];
+        for (int square = 0; square < SIZE; square++) {
+            board[square] = UNMARKED;
         }
     }
 
-    public char getMark(int square) {
+    public PlayerMark getMark(int square) {
         return board[square];
     }
 
-    public void setMark(int square, char mark) throws SquareIsMarkedException {
-        if (isUnmarked(square)) {
+    public void setMark(int square, PlayerMark mark) throws SquareIsMarkedException {
+        if (board[square] == UNMARKED) {
             board[square] = mark;
         }
         else {
             throw new SquareIsMarkedException();
         }
-    }
-
-    private boolean isUnmarked(int square) {
-        return board[square] == UNMARKED_SQUARE;
     }
 }
