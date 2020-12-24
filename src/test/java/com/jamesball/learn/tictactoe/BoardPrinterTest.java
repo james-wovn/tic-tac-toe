@@ -7,6 +7,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class BoardPrinterTest {
 
@@ -15,27 +17,30 @@ public class BoardPrinterTest {
     private BoardPrinter printer;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         System.setOut(new PrintStream(output));
 
         printer = new BoardPrinter(System.out);
     }
 
     @Test
-    public void whenPrinted_thenOutputIsCorrect() {
-        String[] marks = new String[]{"X", null, null, null, "O", null, null, null, "X"};
+    public void whenPrinted_thenFormatIsCorrect() {
+        Board board = mock(Board.class);
 
-        printer.print(marks);
+        board.setBoard();
+
+        when(board.getBoard()).thenReturn(new char[]{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '});
+
+        printer.print(board.getBoard());
 
         assertEquals("""
-                    a   b   c
-                  +---+---+---+
-                1 | X |   |   |
-                  +---+---+---+
-                2 |   | O |   |
-                  +---+---+---+
-                3 |   |   | X |
-                  +---+---+---+
+                -----+-----+-----
+                |    |     |    |
+                -----+-----+-----
+                |    |     |    |
+                -----+-----+-----
+                |    |     |    |
+                -----+-----+-----
                 """, output.toString());
     }
 }

@@ -5,17 +5,21 @@ import java.util.regex.Pattern;
 
 public class MoveParser {
 
+    private static final int OFFSET = 1;
+
     private final Pattern pattern;
 
-    public MoveParser(Pattern pattern) {
-        this.pattern = pattern;
+    public MoveParser(String pattern) {
+        this.pattern = Pattern.compile(pattern);
     }
 
-    public String parse(String input) throws InvalidInputException {
+    public int parse(String input) throws InvalidInputException {
+        input = input.trim();
+
         Matcher matcher = pattern.matcher(input);
 
-        if (matcher.find()) {
-            return input;
+        if (matcher.matches()) {
+            return Integer.parseInt(input) - OFFSET;
         }
 
         throw new InvalidInputException();

@@ -1,35 +1,45 @@
 package com.jamesball.learn.tictactoe;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
 
+    private static final char UNMARKED_SQUARE = ' ';
+    private static final char MARKED_SQUARE = 'X';
+
     private Board board;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         board = new Board();
+
+        board.setBoard();
     }
 
-    @Test
-    public void whenCoordinateIsValid_thenReturnSquare() {
-        String[] coordinates = new String[]{"a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2", "c3"};
-
-        for (String coordinate : coordinates) {
-            assertEquals(BoardSquare.class, board.getSquare(coordinate).getClass());
-        }
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
+    public void whenBoardIsSet_thenAllSquaresAreUnmarked(int square) {
+        assertEquals(UNMARKED_SQUARE, board.getMark(square));
     }
 
-    @Test
-    public void whenCoordinateIsInvalid_thenThrowInvalidCoordinateException() {
-        assertThrows(InvalidCoordinateException.class, () -> board.getSquare("z9"));
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
+    public void whenSquareIsUnmarked_thenMarkSquare(int square) {
+        board.setMark(square, MARKED_SQUARE);
+        assertEquals(MARKED_SQUARE, board.getMark(square));
     }
 
-    @Test
-    public void whenGetMarks_thenReturnArrayOfStrings() {
-        assertArrayEquals(new String[9], board.getMarks());
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
+    public void whenSquareIsMarked_thenThrowSquareIsMarkedException(int square) {
+        board.setMark(square, MARKED_SQUARE);
+        assertThrows(SquareIsMarkedException.class, () -> {
+            board.setMark(square, MARKED_SQUARE);
+            board.setMark(square, MARKED_SQUARE);
+        });
     }
 }

@@ -10,11 +10,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 public class MoveAskerTest {
 
     @Test
-    public void whenInputEntered_thenReturnInput() {
-        System.setIn(new ByteArrayInputStream("a1".getBytes()));
+    public void whenAsk_thenReturnInput() {
+        System.setIn(new ByteArrayInputStream("0".getBytes()));
 
         MoveAsker asker = new MoveAsker(System.in, System.out);
 
-        assertEquals("a1", asker.ask(anyString()));
+        assertEquals("0", asker.ask(anyString()));
     }
 }
