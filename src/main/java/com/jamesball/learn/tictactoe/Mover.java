@@ -2,10 +2,10 @@ package com.jamesball.learn.tictactoe;
 
 public class Mover {
 
-    private final Asker asker;
+    private final MoveAsker asker;
     private final MoveParser parser;
 
-    public Mover(Asker asker, MoveParser parser) {
+    public Mover(MoveAsker asker, MoveParser parser) {
         this.asker = asker;
         this.parser = parser;
     }

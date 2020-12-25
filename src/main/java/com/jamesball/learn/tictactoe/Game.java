@@ -20,6 +20,8 @@ public class Game {
     }
 
     public void takeTurn() {
+        switcher.switchPlayer();
+
         PlayerMark currentPlayer = switcher.getCurrentPlayer();
 
         System.out.printf("%c Turn", currentPlayer.getMark());

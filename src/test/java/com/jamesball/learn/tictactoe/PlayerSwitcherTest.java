@@ -1,7 +1,7 @@
 package com.jamesball.learn.tictactoe;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -17,8 +17,8 @@ public class PlayerSwitcherTest {
         switcher = new PlayerSwitcher();
     }
 
-    @AfterEach
-    public void afterEach() {
+    @BeforeEach
+    public void beforeEach() {
         switcher.switchPlayer();
     }
 

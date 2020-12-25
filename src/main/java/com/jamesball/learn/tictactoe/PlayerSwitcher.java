@@ -4,7 +4,7 @@ import static com.jamesball.learn.tictactoe.PlayerMark.*;
 
 public class PlayerSwitcher {
 
-    private PlayerMark currentPlayer = PLAYER_1;
+    private PlayerMark currentPlayer;
 
     public PlayerSwitcher() {
     }
@@ -14,9 +14,14 @@ public class PlayerSwitcher {
     }
 
     public void switchPlayer() {
-        switch (currentPlayer) {
-            case PLAYER_1 -> currentPlayer = PLAYER_2;
-            case PLAYER_2 -> currentPlayer = PLAYER_1;
+        if (currentPlayer == null) {
+            currentPlayer = PLAYER_1;
+        }
+        else {
+            switch (currentPlayer) {
+                case PLAYER_1 -> currentPlayer = PLAYER_2;
+                case PLAYER_2 -> currentPlayer = PLAYER_1;
+            }
         }
     }
 }
