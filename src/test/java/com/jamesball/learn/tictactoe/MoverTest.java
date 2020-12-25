@@ -9,13 +9,13 @@ import static org.mockito.Mockito.*;
 public class MoverTest {
 
     private Mover mover;
-    private MoveAsker asker;
+    private Asker asker;
     private MoveParser parser;
     private Board board;
 
     @BeforeEach
     public void beforeEach() {
-        asker = mock(MoveAsker.class);
+        asker = mock(Asker.class);
         parser = mock(MoveParser.class);
         board = mock(Board.class);
 

@@ -13,14 +13,14 @@ import static org.mockito.Mockito.when;
 
 public class BoardPrinterTest {
 
-    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     private Board board;
     private BoardPrinter printer;
 
     @BeforeEach
     public void beforeEach() {
-        System.setOut(new PrintStream(output));
+        System.setOut(new PrintStream(out));
 
         board = mock(Board.class);
         printer = new BoardPrinter(System.out);
@@ -44,6 +44,6 @@ public class BoardPrinterTest {
                 +-----+-----+-----+
                 |     |     |  X  |
                 +-----+-----+-----+
-                """, output.toString());
+                """, out.toString());
     }
 }

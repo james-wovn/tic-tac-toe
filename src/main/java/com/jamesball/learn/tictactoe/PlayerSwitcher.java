@@ -4,13 +4,12 @@ import static com.jamesball.learn.tictactoe.PlayerMark.*;
 
 public class PlayerSwitcher {
 
-    private PlayerMark currentPlayer;
+    private PlayerMark currentPlayer = PLAYER_1;
 
     public PlayerSwitcher() {
-        this.currentPlayer = PLAYER_1;
     }
 
-    public PlayerMark getCurrentPlayerMark() {
+    public PlayerMark getCurrentPlayer() {
         return currentPlayer;
     }
 

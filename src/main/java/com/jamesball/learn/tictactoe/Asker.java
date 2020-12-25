@@ -4,12 +4,12 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class MoveAsker {
+public class Asker {
 
     private final Scanner scanner;
     private final PrintStream out;
 
-    public MoveAsker(InputStream in, PrintStream out) {
+    public Asker(InputStream in, PrintStream out) {
         scanner = new Scanner(in);
         this.out = out;
     }

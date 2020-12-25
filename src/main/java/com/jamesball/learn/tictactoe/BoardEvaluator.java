@@ -1,6 +1,6 @@
 package com.jamesball.learn.tictactoe;
 
-import static com.jamesball.learn.tictactoe.BoardState.*;
+import static com.jamesball.learn.tictactoe.GameState.*;
 import static com.jamesball.learn.tictactoe.PlayerMark.UNMARKED;
 
 public class BoardEvaluator {
@@ -22,12 +22,12 @@ public class BoardEvaluator {
     public BoardEvaluator() {
     }
 
-    public BoardState evaluate(Board board) {
+    public GameState evaluate(Board board) {
         if (isWin(board)) {
-            return WIN;
+            return WON;
         }
         else if (isDraw(board)) {
-            return DRAW;
+            return DRAWN;
         }
 
         return IN_PROGRESS;
@@ -39,6 +39,7 @@ public class BoardEvaluator {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -58,6 +59,7 @@ public class BoardEvaluator {
                 return false;
             }
         }
+
         return true;
     }
 }

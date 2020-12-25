@@ -26,10 +26,10 @@ public class PlayerSwitcherTest {
     @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9})
     public void whenPlayerSwitched_thenReturnCorrectPlayer(int turn) {
         if (turn % 2 == 1) {
-            assertEquals(PLAYER_1, switcher.getCurrentPlayerMark());
+            assertEquals(PLAYER_1, switcher.getCurrentPlayer());
         }
         else if (turn % 2 == 0) {
-            assertEquals(PLAYER_2, switcher.getCurrentPlayerMark());
+            assertEquals(PLAYER_2, switcher.getCurrentPlayer());
         }
     }
 }

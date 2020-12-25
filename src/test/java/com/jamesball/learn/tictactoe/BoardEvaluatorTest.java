@@ -3,7 +3,7 @@ package com.jamesball.learn.tictactoe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.jamesball.learn.tictactoe.BoardState.*;
+import static com.jamesball.learn.tictactoe.GameState.*;
 import static com.jamesball.learn.tictactoe.PlayerMark.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -21,7 +21,7 @@ public class BoardEvaluatorTest {
     }
 
     @Test
-    public void whenTopRowIsComplete_thenIsWin() {
+    public void whenTopRowIsComplete_thenGameIsWon() {
         when(board.getMark(0)).thenReturn(PLAYER_1);
         when(board.getMark(1)).thenReturn(PLAYER_1);
         when(board.getMark(2)).thenReturn(PLAYER_1);
@@ -32,11 +32,11 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(UNMARKED);
         when(board.getMark(8)).thenReturn(UNMARKED);
 
-        assertEquals(WIN, evaluator.evaluate(board));
+        assertEquals(WON, evaluator.evaluate(board));
     }
 
     @Test
-    public void whenMiddleRowIsComplete_thenIsWin() {
+    public void whenMiddleRowIsComplete_thenGameIsWon() {
         when(board.getMark(0)).thenReturn(UNMARKED);
         when(board.getMark(1)).thenReturn(UNMARKED);
         when(board.getMark(2)).thenReturn(UNMARKED);
@@ -47,11 +47,11 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(UNMARKED);
         when(board.getMark(8)).thenReturn(UNMARKED);
 
-        assertEquals(WIN, evaluator.evaluate(board));
+        assertEquals(WON, evaluator.evaluate(board));
     }
 
     @Test
-    public void whenBottomRowIsComplete_thenIsWin() {
+    public void whenBottomRowIsComplete_thenGameIsWon() {
         when(board.getMark(0)).thenReturn(UNMARKED);
         when(board.getMark(1)).thenReturn(UNMARKED);
         when(board.getMark(2)).thenReturn(UNMARKED);
@@ -62,11 +62,11 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(PLAYER_1);
         when(board.getMark(8)).thenReturn(PLAYER_1);
 
-        assertEquals(WIN, evaluator.evaluate(board));
+        assertEquals(WON, evaluator.evaluate(board));
     }
 
     @Test
-    public void whenLeftColumnIsComplete_thenIsWin() {
+    public void whenLeftColumnIsComplete_thenGameIsWon() {
         when(board.getMark(0)).thenReturn(PLAYER_1);
         when(board.getMark(1)).thenReturn(UNMARKED);
         when(board.getMark(2)).thenReturn(UNMARKED);
@@ -77,11 +77,11 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(UNMARKED);
         when(board.getMark(8)).thenReturn(UNMARKED);
 
-        assertEquals(WIN, evaluator.evaluate(board));
+        assertEquals(WON, evaluator.evaluate(board));
     }
 
     @Test
-    public void whenMiddleColumnIsComplete_thenIsWin() {
+    public void whenMiddleColumnIsComplete_thenGameIsWon() {
         when(board.getMark(0)).thenReturn(UNMARKED);
         when(board.getMark(1)).thenReturn(PLAYER_1);
         when(board.getMark(2)).thenReturn(UNMARKED);
@@ -92,11 +92,11 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(PLAYER_1);
         when(board.getMark(8)).thenReturn(UNMARKED);
 
-        assertEquals(WIN, evaluator.evaluate(board));
+        assertEquals(WON, evaluator.evaluate(board));
     }
 
     @Test
-    public void whenRightColumnIsComplete_thenIsWin() {
+    public void whenRightColumnIsComplete_thenGameIsWon() {
         when(board.getMark(0)).thenReturn(UNMARKED);
         when(board.getMark(1)).thenReturn(UNMARKED);
         when(board.getMark(2)).thenReturn(PLAYER_1);
@@ -107,11 +107,11 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(UNMARKED);
         when(board.getMark(8)).thenReturn(PLAYER_1);
 
-        assertEquals(WIN, evaluator.evaluate(board));
+        assertEquals(WON, evaluator.evaluate(board));
     }
 
     @Test
-    public void whenTopLeftDiagonalIsComplete_thenIsWin() {
+    public void whenTopLeftDiagonalIsComplete_thenGameIsWon() {
         when(board.getMark(0)).thenReturn(PLAYER_1);
         when(board.getMark(1)).thenReturn(UNMARKED);
         when(board.getMark(2)).thenReturn(UNMARKED);
@@ -122,11 +122,11 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(UNMARKED);
         when(board.getMark(8)).thenReturn(PLAYER_1);
 
-        assertEquals(WIN, evaluator.evaluate(board));
+        assertEquals(WON, evaluator.evaluate(board));
     }
 
     @Test
-    public void whenBottomLeftDiagonalIsComplete_thenIsWin() {
+    public void whenBottomLeftDiagonalIsComplete_thenGameIsWon() {
         when(board.getMark(0)).thenReturn(UNMARKED);
         when(board.getMark(1)).thenReturn(UNMARKED);
         when(board.getMark(2)).thenReturn(PLAYER_1);
@@ -137,11 +137,11 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(UNMARKED);
         when(board.getMark(8)).thenReturn(UNMARKED);
 
-        assertEquals(WIN, evaluator.evaluate(board));
+        assertEquals(WON, evaluator.evaluate(board));
     }
 
     @Test
-    public void whenNoCombinationIsComplete_thenIsInProgress() {
+    public void whenNoCombinationIsComplete_thenGameIsInProgress() {
         when(board.getMark(0)).thenReturn(PLAYER_1);
         when(board.getMark(1)).thenReturn(UNMARKED);
         when(board.getMark(2)).thenReturn(PLAYER_1);
@@ -156,7 +156,7 @@ public class BoardEvaluatorTest {
     }
 
     @Test
-    public void whenNoUnmarkedSquareAndNoCombinationIsComplete_thenIsDraw() {
+    public void whenNoUnmarkedSquareAndNoCombinationIsComplete_thenGameIsDrawn() {
         when(board.getMark(0)).thenReturn(PLAYER_1);
         when(board.getMark(1)).thenReturn(PLAYER_2);
         when(board.getMark(2)).thenReturn(PLAYER_1);
@@ -167,6 +167,6 @@ public class BoardEvaluatorTest {
         when(board.getMark(7)).thenReturn(PLAYER_1);
         when(board.getMark(8)).thenReturn(PLAYER_2);
 
-        assertEquals(DRAW, evaluator.evaluate(board));
+        assertEquals(DRAWN, evaluator.evaluate(board));
     }
 }

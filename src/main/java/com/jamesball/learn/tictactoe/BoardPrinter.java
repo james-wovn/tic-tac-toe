@@ -20,17 +20,9 @@ public class BoardPrinter {
                 |  %c  |  %c  |  %c  |
                 +-----+-----+-----+  
                 """,
-                parseMark(board[0]), parseMark(board[1]), parseMark(board[2]),
-                parseMark(board[3]), parseMark(board[4]), parseMark(board[5]),
-                parseMark(board[6]), parseMark(board[7]), parseMark(board[8])
+                board[0].getMark(), board[1].getMark(), board[2].getMark(),
+                board[3].getMark(), board[4].getMark(), board[5].getMark(),
+                board[6].getMark(), board[7].getMark(), board[8].getMark()
         );
-    }
-
-    private char parseMark(PlayerMark mark) {
-        return switch (mark) {
-            case UNMARKED -> ' ';
-            case PLAYER_1 -> 'X';
-            case PLAYER_2 -> 'O';
-        };
     }
 }
