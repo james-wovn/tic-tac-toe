@@ -4,35 +4,28 @@ import static com.jamesball.learn.tictactoe.PlayerMark.*;
 
 public class Board {
 
-    private static final int SIZE = 9;
+    private final PlayerMark[] squares = new PlayerMark[]{
+            UNMARKED, UNMARKED, UNMARKED,
+            UNMARKED, UNMARKED, UNMARKED,
+            UNMARKED, UNMARKED, UNMARKED
+    };
 
-    private PlayerMark[] board;
+    private final int numberOfSquares = squares.length;
 
     public Board() {
     }
 
-    public static int getSize() {
-        return SIZE;
+    public int getNumberOfSquares() {
+        return numberOfSquares;
     }
 
-    public PlayerMark[] getBoard() {
-        return board;
+    public PlayerMark getSquare(int square) {
+        return squares[square];
     }
 
-    public void setBoard() {
-        board = new PlayerMark[SIZE];
-        for (int square = 0; square < SIZE; square++) {
-            board[square] = UNMARKED;
-        }
-    }
-
-    public PlayerMark getMark(int square) {
-        return board[square];
-    }
-
-    public void setMark(int square, PlayerMark mark) throws SquareIsMarkedException {
-        if (board[square] == UNMARKED) {
-            board[square] = mark;
+    public void markSquare(int square, PlayerMark mark) throws SquareIsMarkedException {
+        if (squares[square] == UNMARKED) {
+            squares[square] = mark;
         }
         else {
             throw new SquareIsMarkedException();

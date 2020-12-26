@@ -17,7 +17,7 @@ public class Mover {
             try {
                 int square =  parser.parse(input);
 
-                board.setMark(square, mark);
+                board.markSquare(square, mark);
 
                 break;
             } catch (InvalidInputException exception) {

@@ -10,7 +10,7 @@ public class BoardPrinter {
         this.out = out;
     }
 
-    public void print(PlayerMark[] board) {
+    public void print(Board board) {
         out.printf("""
                 +-----+-----+-----+
                 |  %c  |  %c  |  %c  |
@@ -20,9 +20,9 @@ public class BoardPrinter {
                 |  %c  |  %c  |  %c  |
                 +-----+-----+-----+  
                 """,
-                board[0].getMark(), board[1].getMark(), board[2].getMark(),
-                board[3].getMark(), board[4].getMark(), board[5].getMark(),
-                board[6].getMark(), board[7].getMark(), board[8].getMark()
+                board.getSquare(0).getMark(), board.getSquare(1).getMark(), board.getSquare(2).getMark(),
+                board.getSquare(3).getMark(), board.getSquare(4).getMark(), board.getSquare(5).getMark(),
+                board.getSquare(6).getMark(), board.getSquare(7).getMark(), board.getSquare(8).getMark()
         );
     }
 }

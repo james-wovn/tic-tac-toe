@@ -32,7 +32,7 @@ public class MoverTest {
 
         verify(asker).ask("Enter square (1-9): ");
         verify(parser).parse("1");
-        verify(board).setMark(0, PLAYER_1);
+        verify(board).markSquare(0, PLAYER_1);
     }
 
     @Test
@@ -49,6 +49,6 @@ public class MoverTest {
         verify(parser).parse("10");
         verify(asker).ask("Invalid square, try again: ");
         verify(parser).parse("1");
-        verify(board).setMark(0, PLAYER_1);
+        verify(board).markSquare(0, PLAYER_1);
     }
 }

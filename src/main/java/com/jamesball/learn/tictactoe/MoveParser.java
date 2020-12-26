@@ -9,8 +9,8 @@ public class MoveParser {
 
     private final Pattern pattern;
 
-    public MoveParser(String pattern) {
-        this.pattern = Pattern.compile(pattern);
+    public MoveParser(Pattern pattern) {
+        this.pattern = pattern;
     }
 
     public int parse(String input) throws InvalidInputException {

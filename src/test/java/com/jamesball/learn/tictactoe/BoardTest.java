@@ -14,30 +14,28 @@ public class BoardTest {
     @BeforeEach
     public void beforeEach() {
         board = new Board();
-
-        board.setBoard();
     }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
     public void whenBoardIsSet_thenAllSquaresAreUnmarked(int square) {
-        assertEquals(UNMARKED, board.getMark(square));
+        assertEquals(UNMARKED, board.getSquare(square));
     }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
     public void whenSquareIsUnmarked_thenMarkSquare(int square) {
-        board.setMark(square, PLAYER_1);
-        assertEquals(PLAYER_1, board.getMark(square));
+        board.markSquare(square, PLAYER_1);
+        assertEquals(PLAYER_1, board.getSquare(square));
     }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
     public void whenSquareIsMarked_thenThrowSquareIsMarkedException(int square) {
-        board.setMark(square, PLAYER_1);
+        board.markSquare(square, PLAYER_1);
         assertThrows(SquareIsMarkedException.class, () -> {
-            board.setMark(square, PLAYER_1);
-            board.setMark(square, PLAYER_1);
+            board.markSquare(square, PLAYER_1);
+            board.markSquare(square, PLAYER_1);
         });
     }
 }

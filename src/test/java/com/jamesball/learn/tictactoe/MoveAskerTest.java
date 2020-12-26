@@ -11,7 +11,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 public class MoveAskerTest {
 
     @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
+    @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9})
     public void whenAskToSelectSquare_thenReturnInput(int square) {
         System.setIn(new ByteArrayInputStream("%d".formatted(square).getBytes()));
 

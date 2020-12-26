@@ -28,13 +28,17 @@ public class BoardPrinterTest {
 
     @Test
     public void whenPrinted_thenFormatIsCorrect() {
-        when(board.getBoard()).thenReturn(new PlayerMark[]{
-                PLAYER_1, UNMARKED, UNMARKED,
-                UNMARKED, PLAYER_2, UNMARKED,
-                UNMARKED, UNMARKED, PLAYER_1
-        });
+        when(board.getSquare(0)).thenReturn(PLAYER_1);
+        when(board.getSquare(1)).thenReturn(UNMARKED);
+        when(board.getSquare(2)).thenReturn(UNMARKED);
+        when(board.getSquare(3)).thenReturn(UNMARKED);
+        when(board.getSquare(4)).thenReturn(PLAYER_2);
+        when(board.getSquare(5)).thenReturn(UNMARKED);
+        when(board.getSquare(6)).thenReturn(UNMARKED);
+        when(board.getSquare(7)).thenReturn(UNMARKED);
+        when(board.getSquare(8)).thenReturn(PLAYER_1);
 
-        printer.print(board.getBoard());
+        printer.print(board);
 
         assertEquals("""
                 +-----+-----+-----+

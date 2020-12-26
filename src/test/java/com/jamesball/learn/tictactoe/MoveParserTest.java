@@ -4,16 +4,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.regex.Pattern;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MoveParserTest {
 
+    private final Pattern pattern = Pattern.compile("^[1-9]$");
     private MoveParser parser;
 
     @BeforeEach
     public void beforeEach() {
-        parser = new MoveParser("^[1-9]$");
+        parser = new MoveParser(pattern);
     }
 
     @ParameterizedTest

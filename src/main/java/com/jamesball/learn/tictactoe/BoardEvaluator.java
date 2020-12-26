@@ -35,7 +35,7 @@ public class BoardEvaluator {
 
     private boolean isWin(Board board) {
         for (int[] combination : COMBINATIONS) {
-            if (isCompleteCombination(board, combination)) {
+            if (isCombinationComplete(board, combination)) {
                 return true;
             }
         }
@@ -44,18 +44,20 @@ public class BoardEvaluator {
     }
 
     private boolean isDraw(Board board) {
-        for (int square = 0; square < Board.getSize(); square++) {
-            if (board.getMark(square) == UNMARKED) {
+        for (int square = 0; square < board.getNumberOfSquares(); square++)
+            if (board.getSquare(square) == UNMARKED) {
                 return false;
-            }
         }
 
         return true;
     }
 
-    private boolean isCompleteCombination(Board board, int[] combination) {
+    private boolean isCombinationComplete(Board board, int[] combination) {
+        PlayerMark firstMark = board.getSquare(combination[0]);
+
         for (int square : combination) {
-            if (board.getMark(square) != board.getMark(combination[0])) {
+            PlayerMark mark = board.getSquare(square);
+            if (mark == UNMARKED || mark != firstMark) {
                 return false;
             }
         }
