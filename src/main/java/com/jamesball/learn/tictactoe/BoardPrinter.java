@@ -12,13 +12,14 @@ public class BoardPrinter {
 
     public void print(Board board) {
         out.printf("""
-                +-----+-----+-----+
-                |  %c  |  %c  |  %c  |
-                +-----+-----+-----+
-                |  %c  |  %c  |  %c  |
-                +-----+-----+-----+
-                |  %c  |  %c  |  %c  |
-                +-----+-----+-----+  
+                Current:                 Reference:
+                +-----+-----+-----+  <<  +-----+-----+-----+
+                |  %c  |  %c  |  %c  |  <<  |  1  |  2  |  3  |
+                +-----+-----+-----+  <<  +-----+-----+-----+
+                |  %c  |  %c  |  %c  |  <<  |  4  |  5  |  6  |
+                +-----+-----+-----+  <<  +-----+-----+-----+
+                |  %c  |  %c  |  %c  |  <<  |  7  |  8  |  9  |
+                +-----+-----+-----+  <<  +-----+-----+-----+  
                 """,
                 board.getSquare(0).getMark(), board.getSquare(1).getMark(), board.getSquare(2).getMark(),
                 board.getSquare(3).getMark(), board.getSquare(4).getMark(), board.getSquare(5).getMark(),
