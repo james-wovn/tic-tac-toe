@@ -44,7 +44,7 @@ public class BoardEvaluator {
     }
 
     private boolean isDraw(Board board) {
-        for (int square = 0; square < board.getNumberOfSquares(); square++)
+        for (int square = 0; square < board.getSquares().length; square++)
             if (board.getSquare(square) == UNMARKED) {
                 return false;
         }

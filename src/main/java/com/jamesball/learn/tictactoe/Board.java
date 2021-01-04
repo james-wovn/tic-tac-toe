@@ -10,13 +10,11 @@ public class Board {
             UNMARKED, UNMARKED, UNMARKED
     };
 
-    private final int numberOfSquares = squares.length;
-
     public Board() {
     }
 
-    public int getNumberOfSquares() {
-        return numberOfSquares;
+    public PlayerMark[] getSquares() {
+        return squares;
     }
 
     public PlayerMark getSquare(int square) {
@@ -30,5 +28,15 @@ public class Board {
         else {
             throw new SquareIsMarkedException();
         }
+    }
+
+    public Board copy() {
+        Board boardCopy = new Board();
+
+        for (int i = 0; i < squares.length; i++) {
+            boardCopy.markSquare(i, this.getSquare(i));
+        }
+
+        return boardCopy;
     }
 }

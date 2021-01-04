@@ -142,7 +142,7 @@ public class BoardEvaluatorTest {
 
     @Test
     public void whenAllSquaresAreUnmarked_thenGameIsInProgress() {
-        when(board.getNumberOfSquares()).thenReturn(9);
+        when(board.getSquares()).thenReturn(new PlayerMark[9]);
 
         when(board.getSquare(0)).thenReturn(UNMARKED);
         when(board.getSquare(1)).thenReturn(UNMARKED);
@@ -159,7 +159,7 @@ public class BoardEvaluatorTest {
 
     @Test
     public void whenNoCombinationIsComplete_thenGameIsInProgress() {
-        when(board.getNumberOfSquares()).thenReturn(9);
+        when(board.getSquares()).thenReturn(new PlayerMark[9]);
 
         when(board.getSquare(0)).thenReturn(PLAYER_1);
         when(board.getSquare(1)).thenReturn(UNMARKED);
@@ -176,7 +176,7 @@ public class BoardEvaluatorTest {
 
     @Test
     public void whenNoUnmarkedSquareAndNoCombinationIsComplete_thenGameIsDrawn() {
-        when(board.getNumberOfSquares()).thenReturn(9);
+        when(board.getSquares()).thenReturn(new PlayerMark[9]);
 
         when(board.getSquare(0)).thenReturn(PLAYER_2);
         when(board.getSquare(1)).thenReturn(PLAYER_2);
