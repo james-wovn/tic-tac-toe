@@ -1,6 +1,7 @@
 package com.jamesball.learn.tictactoe;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayInputStream;
 
@@ -9,12 +10,13 @@ import static org.mockito.ArgumentMatchers.anyString;
 
 public class MoveAskerTest {
 
-    @Test
-    public void whenInputEntered_thenReturnInput() {
-        System.setIn(new ByteArrayInputStream("a1".getBytes()));
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9})
+    public void whenAskToSelectSquare_thenReturnInput(int square) {
+        System.setIn(new ByteArrayInputStream("%d".formatted(square).getBytes()));
 
         MoveAsker asker = new MoveAsker(System.in, System.out);
 
-        assertEquals("a1", asker.ask(anyString()));
+        assertEquals("%d".formatted(square), asker.ask(anyString()));
     }
 }

@@ -1,7 +1,6 @@
 package com.jamesball.learn.tictactoe;
 
 import java.io.PrintStream;
-import java.util.Optional;
 
 public class BoardPrinter {
 
@@ -11,30 +10,20 @@ public class BoardPrinter {
         this.out = out;
     }
 
-    public void print(String[] marks) {
-        String outputFormat = """
-                    a   b   c
-                  +---+---+---+
-                1 | %s | %s | %s |
-                  +---+---+---+
-                2 | %s | %s | %s |
-                  +---+---+---+
-                3 | %s | %s | %s |
-                  +---+---+---+
-                """;
-
-        out.print(outputFormat.formatted(
-                formatMark(marks[0]), formatMark(marks[1]), formatMark(marks[2]),
-                formatMark(marks[3]), formatMark(marks[4]), formatMark(marks[5]),
-                formatMark(marks[6]), formatMark(marks[7]), formatMark(marks[8])
-        ));
-    }
-
-    private String formatMark(String mark) {
-        Optional<String> optionalMark = Optional.ofNullable(mark);
-        if (optionalMark.isEmpty()) {
-            return " ";
-        }
-        return mark;
+    public void print(Board board) {
+        out.printf("""
+                Current:                 Reference:
+                +-----+-----+-----+  <<  +-----+-----+-----+
+                |  %c  |  %c  |  %c  |  <<  |  1  |  2  |  3  |
+                +-----+-----+-----+  <<  +-----+-----+-----+
+                |  %c  |  %c  |  %c  |  <<  |  4  |  5  |  6  |
+                +-----+-----+-----+  <<  +-----+-----+-----+
+                |  %c  |  %c  |  %c  |  <<  |  7  |  8  |  9  |
+                +-----+-----+-----+  <<  +-----+-----+-----+  
+                """,
+                board.getSquare(0).getMark(), board.getSquare(1).getMark(), board.getSquare(2).getMark(),
+                board.getSquare(3).getMark(), board.getSquare(4).getMark(), board.getSquare(5).getMark(),
+                board.getSquare(6).getMark(), board.getSquare(7).getMark(), board.getSquare(8).getMark()
+        );
     }
 }
