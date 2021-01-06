@@ -24,7 +24,7 @@ public class Game {
 
         PlayerMark currentPlayer = switcher.getCurrentPlayer();
 
-        System.out.printf("%c Turn", currentPlayer.getMark());
+        System.out.printf("%c Turn\n", currentPlayer.getMark());
 
         mover.move(board, switcher.getCurrentPlayer());
     }
