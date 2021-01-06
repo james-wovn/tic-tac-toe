@@ -21,22 +21,34 @@ public class Board {
         return squares[square];
     }
 
-    public void markSquare(int square, PlayerMark mark) throws SquareIsMarkedException {
-        if (squares[square] == UNMARKED) {
-            squares[square] = mark;
+    public void markSquare(Move move) throws SquareIsMarkedException {
+        if (isUnmarked(move.getSquare())) {
+            squares[move.getSquare()] = move.getMark();
         }
         else {
             throw new SquareIsMarkedException();
         }
     }
 
-    public Board copy() {
-        Board boardCopy = new Board();
+    public Move[] availableMoves() {
+        Move[] availableMoves = new Move[]{};
 
-        for (int i = 0; i < squares.length; i++) {
-            boardCopy.markSquare(i, this.getSquare(i));
+        for (int square = 0; square < squares.length; square++) {
+            if (isUnmarked(square)) {
+                Move availableMove = new Move();
+
+                availableMove.setSquare(square);
+
+                Move[] availableMovesCopy = new Move[availableMoves.length + 1];
+                availableMovesCopy[availableMoves.length] = availableMove;
+                availableMoves = availableMovesCopy;
+            }
         }
 
-        return boardCopy;
+        return availableMoves;
+    }
+
+    private boolean isUnmarked(int square) {
+        return squares[square] == UNMARKED;
     }
 }

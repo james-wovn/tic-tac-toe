@@ -17,10 +17,12 @@ public class Mover {
             try {
                 int square =  parser.parse(input);
 
-                board.markSquare(square, mark);
+                Move move = new Move(square, mark);
+
+                board.markSquare(move);
 
                 break;
-            } catch (InvalidInputException exception) {
+            } catch (InvalidInputException | SquareIsMarkedException exception) {
                 input = asker.ask("Invalid square, try again: ");
             }
         }

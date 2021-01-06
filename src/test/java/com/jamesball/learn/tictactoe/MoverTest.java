@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 
 public class MoverTest {
 
+    private Move move;
     private Mover mover;
     private MoveAsker asker;
     private MoveParser parser;
@@ -32,7 +33,7 @@ public class MoverTest {
 
         verify(asker).ask("Enter square (1-9): ");
         verify(parser).parse("1");
-        verify(board).markSquare(0, PLAYER_1);
+        verify(board).markSquare(any(Move.class));
     }
 
     @Test
@@ -49,6 +50,6 @@ public class MoverTest {
         verify(parser).parse("10");
         verify(asker).ask("Invalid square, try again: ");
         verify(parser).parse("1");
-        verify(board).markSquare(0, PLAYER_1);
+        verify(board).markSquare(any(Move.class));
     }
 }
