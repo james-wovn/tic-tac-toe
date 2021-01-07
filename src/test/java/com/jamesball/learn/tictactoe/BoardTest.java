@@ -21,10 +21,15 @@ public class BoardTest {
         move = mock(Move.class);
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
-    public void whenBoardIsSet_thenAllSquaresAreUnmarked(int square) {
-        assertEquals(UNMARKED, board.getSquare(square));
+    @Test
+    public void whenBoardIsSet_thenAllSquaresAreUnmarked() {
+        final PlayerMark[] expectedSquares = new PlayerMark[]{
+                UNMARKED, UNMARKED, UNMARKED,
+                UNMARKED, UNMARKED, UNMARKED,
+                UNMARKED, UNMARKED, UNMARKED
+        };
+
+        assertArrayEquals(expectedSquares, board.getSquares());
     }
 
     @ParameterizedTest
@@ -34,6 +39,7 @@ public class BoardTest {
         when(move.getMark()).thenReturn(PLAYER_1);
 
         board.markSquare(move);
+
         assertEquals(PLAYER_1, board.getSquare(square));
     }
 
@@ -47,5 +53,26 @@ public class BoardTest {
             board.markSquare(move);
             board.markSquare(move);
         });
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
+    public void whenSquareIsMarked_thenItIsNotReturnedInUnmarkedSquares(int markedSquare) {
+        int[] expectedUnmarkedSquares = new int[]{};
+
+        for (int square = 0; square < board.getSquares().length; square++) {
+            if (square != markedSquare) {
+                int[] expectedUnmarkedSquaresCopy = new int[expectedUnmarkedSquares.length + 1];
+                expectedUnmarkedSquaresCopy[expectedUnmarkedSquares.length] = square;
+                expectedUnmarkedSquares = expectedUnmarkedSquaresCopy;
+            }
+        }
+
+        when(move.getSquare()).thenReturn(markedSquare);
+        when(move.getMark()).thenReturn(PLAYER_1);
+
+        board.markSquare(move);
+
+        assertArrayEquals(expectedUnmarkedSquares, board.unmarkedSquares());
     }
 }

@@ -1,5 +1,7 @@
 package com.jamesball.learn.tictactoe;
 
+import java.util.Arrays;
+
 import static com.jamesball.learn.tictactoe.PlayerMark.*;
 
 public class Board {
@@ -30,22 +32,18 @@ public class Board {
         }
     }
 
-    public Move[] availableMoves() {
-        Move[] availableMoves = new Move[]{};
+    public int[] unmarkedSquares() {
+        int[] unmarkedSquares = new int[]{};
 
         for (int square = 0; square < squares.length; square++) {
             if (isUnmarked(square)) {
-                Move availableMove = new Move();
-
-                availableMove.setSquare(square);
-
-                Move[] availableMovesCopy = new Move[availableMoves.length + 1];
-                availableMovesCopy[availableMoves.length] = availableMove;
-                availableMoves = availableMovesCopy;
+                int[] unmarkedSquaresCopy = new int[unmarkedSquares.length + 1];
+                unmarkedSquaresCopy[unmarkedSquares.length] = square;
+                unmarkedSquares = unmarkedSquaresCopy;
             }
         }
 
-        return availableMoves;
+        return unmarkedSquares;
     }
 
     private boolean isUnmarked(int square) {
