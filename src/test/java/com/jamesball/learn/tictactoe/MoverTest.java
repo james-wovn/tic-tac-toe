@@ -8,48 +8,51 @@ import static org.mockito.Mockito.*;
 
 public class MoverTest {
 
+    private Board board;
     private Move move;
     private Mover mover;
     private MoveAsker asker;
     private MoveParser parser;
-    private Board board;
 
     @BeforeEach
     public void beforeEach() {
+        board = mock(Board.class);
+        move = mock(Move.class);
         asker = mock(MoveAsker.class);
         parser = mock(MoveParser.class);
-        board = mock(Board.class);
 
-        mover = new Mover(asker, parser);
+        mover = new Mover(board, asker, parser);
     }
 
     @Test
     public void whenInputIsValid_thenSetMark() {
-        when(asker.ask("Enter square (1-9): ")).thenReturn("1");
+        final String input = "1";
+        final PlayerMark mark = PLAYER_1;
 
-        when(parser.parse("1")).thenReturn(0);
+        when(asker.ask("Enter square (1-9): ")).thenReturn(input);
+        when(parser.validate(input)).thenReturn(true);
+        when(parser.parse(input, mark)).thenReturn(move);
 
-        mover.move(board, PLAYER_1);
+        mover.move(mark);
 
         verify(asker).ask("Enter square (1-9): ");
-        verify(parser).parse("1");
-        verify(board).markSquare(any(Move.class));
+        verify(board).markSquare(move);
     }
 
     @Test
     public void whenInputIsNotValid_thenAskAgain() {
-        when(asker.ask("Enter square (1-9): ")).thenReturn("10");
-        when(asker.ask("Invalid square, try again: ")).thenReturn("1");
+        final String input = "1";
+        final PlayerMark mark = PLAYER_1;
 
-        when(parser.parse("10")).thenThrow(InvalidInputException.class);
-        when(parser.parse("1")).thenReturn(0);
+        when(asker.ask("Enter square (1-9): ")).thenReturn(input);
+        when(asker.ask("Invalid square, try again: ")).thenReturn(input);
+        when(parser.validate(anyString())).thenReturn(false).thenReturn(true);
+        when(parser.parse(input, mark)).thenReturn(move);
 
-        mover.move(board, PLAYER_1);
+        mover.move(mark);
 
         verify(asker).ask("Enter square (1-9): ");
-        verify(parser).parse("10");
         verify(asker).ask("Invalid square, try again: ");
-        verify(parser).parse("1");
-        verify(board).markSquare(any(Move.class));
+        verify(board).markSquare(move);
     }
 }

@@ -23,13 +23,8 @@ public class Board {
         return squares[square];
     }
 
-    public void markSquare(Move move) throws SquareIsMarkedException {
-        if (isUnmarked(move.getSquare())) {
-            squares[move.getSquare()] = move.getMark();
-        }
-        else {
-            throw new SquareIsMarkedException();
-        }
+    public void markSquare(Move move) {
+        squares[move.getSquare()] = move.getMark();
     }
 
     public int[] unmarkedSquares() {
@@ -46,7 +41,7 @@ public class Board {
         return unmarkedSquares;
     }
 
-    private boolean isUnmarked(int square) {
+    public boolean isUnmarked(int square) {
         return squares[square] == UNMARKED;
     }
 }

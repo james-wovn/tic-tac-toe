@@ -26,7 +26,7 @@ public class Game {
 
         System.out.printf("%c Turn\n", currentPlayer.getMark());
 
-        mover.move(board, switcher.getCurrentPlayer());
+        mover.move(switcher.getCurrentPlayer());
     }
 
     public boolean isGameOver() {

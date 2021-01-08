@@ -4,38 +4,36 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.regex.Pattern;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MoveParserTest {
 
-    private final Pattern pattern = Pattern.compile("^[1-9]$");
+    private Board board;
     private MoveParser parser;
 
     @BeforeEach
     public void beforeEach() {
-        parser = new MoveParser(pattern);
+        board = mock(Board.class);
+        parser = new MoveParser(board);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"1", "2", "3", "4", "5", "6", "7", "8", "9"})
-    public void whenValidSquareIsInput_thenReturnSquareAsInt(String input) {
-        int square = Integer.parseInt(input) - 1;
-        assertEquals(square, parser.parse(input));
+    public void whenInputIsValid_thenReturnTrue(String input) {
+        when(board.isUnmarked(anyInt())).thenReturn(true);
+
+        assertTrue(parser.validate(input));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1", "2", "3", "4", "5", "6", "7", "8", "9"})
-    public void whenValidSquareIsInputAndIncludesWhitespace_thenReturnInputAsInt(String input) {
-        int square = Integer.parseInt(input) - 1;
-        assertEquals(square, parser.parse(" " + input + " "));
-    }
+    @ValueSource(strings = {"", " ", " 1 ", "0", "10", "a", "1a"})
+    public void whenInputInvalid_thenReturnFalse(String input) {
+        when(board.isUnmarked(anyInt())).thenReturn(false);
 
-    @ParameterizedTest
-    @ValueSource(strings = {"", " ", "0", "10", "a", "1a"})
-    public void whenInvalidSquareIsInput_thenThrowInvalidInputException(String input) {
-        assertThrows(InvalidInputException.class, () -> parser.parse(input));
+        assertFalse(parser.validate(input));
     }
 }

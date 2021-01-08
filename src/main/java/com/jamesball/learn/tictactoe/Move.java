@@ -5,9 +5,6 @@ public class Move {
     private int square;
     private PlayerMark mark;
 
-    public Move() {
-    }
-
     public Move(int square, PlayerMark mark) {
         this.square = square;
         this.mark = mark;
@@ -15,10 +12,6 @@ public class Move {
 
     public int getSquare() {
         return square;
-    }
-
-    public void setSquare(int square) {
-        this.square = square;
     }
 
     public PlayerMark getMark() {

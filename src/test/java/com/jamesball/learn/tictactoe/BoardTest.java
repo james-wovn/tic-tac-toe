@@ -34,25 +34,13 @@ public class BoardTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
-    public void whenSquareIsUnmarked_thenMarkSquare(int square) {
+    public void whenPassedMove_thenMarkSquare(int square) {
         when(move.getSquare()).thenReturn(square);
         when(move.getMark()).thenReturn(PLAYER_1);
 
         board.markSquare(move);
 
         assertEquals(PLAYER_1, board.getSquare(square));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
-    public void whenSquareIsMarked_thenThrowSquareIsMarkedException(int square) {
-        when(move.getSquare()).thenReturn(square);
-        when(move.getMark()).thenReturn(PLAYER_1);
-
-        assertThrows(SquareIsMarkedException.class, () -> {
-            board.markSquare(move);
-            board.markSquare(move);
-        });
     }
 
     @ParameterizedTest

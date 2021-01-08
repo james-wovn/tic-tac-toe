@@ -2,21 +2,19 @@ package com.jamesball.learn.tictactoe;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.regex.Pattern;
 
 class TicTacToeApplication {
 
     private static final InputStream in = System.in;
     private static final PrintStream out = System.out;
-    private static final Pattern pattern = Pattern.compile("^[1-9]$");
 
     private static final Board board = new Board();
     private static final BoardEvaluator evaluator = new BoardEvaluator();
     private static final BoardPrinter printer = new BoardPrinter(out);
 
     private static final MoveAsker asker = new MoveAsker(in, out);
-    private static final MoveParser parser = new MoveParser(pattern);
-    private static final Mover mover = new Mover(asker, parser);
+    private static final MoveParser parser = new MoveParser(board);
+    private static final Mover mover = new Mover(board, asker, parser);
 
     private static final PlayerSwitcher switcher = new PlayerSwitcher();
 
