@@ -5,40 +5,65 @@ import static com.jamesball.learn.tictactoe.PlayerMark.*;
 
 public class Game {
 
-    private final Board board;
-    private final BoardEvaluator evaluator;
-    private final Mover mover;
-    private final PlayerSwitcher switcher;
+    private Board board = new Board();
+    private BoardEvaluator evaluator = new BoardEvaluator(board);
+    private MoveChooser chooser = new MoveChooser(board);
+    private MessagePrinter printer = new MessagePrinter();
+    private PlayerSwapper swapper = new PlayerSwapper();
+    private GameState state = IN_PLAY;
+    private PlayerMark currentPlayer = X;
 
-    private GameState state = IN_PROGRESS;
-
-    public Game(Board board, BoardEvaluator evaluator, Mover mover, PlayerSwitcher switcher) {
-        this.board = board;
-        this.evaluator = evaluator;
-        this.mover = mover;
-        this.switcher = switcher;
+    public Board getBoard() {
+        return board;
     }
 
-    public void takeTurn() {
-        switcher.switchPlayer();
-
-        PlayerMark currentPlayer = switcher.getCurrentPlayer();
-
-        System.out.printf("%c Turn\n", currentPlayer.getMark());
-
-        mover.move(switcher.getCurrentPlayer());
+    public GameState getState() {
+        return state;
     }
 
-    public boolean isGameOver() {
-        state = evaluator.evaluate(board);
-
-        return state == WON || state == DRAWN;
+    public PlayerMark getCurrentPlayer() {
+        return currentPlayer;
     }
 
-    public void gameOver() {
+    public void play() {
+        while (true) {
+            turn();
+
+            if (isGameOver()) {
+                gameOver();
+
+                break;
+            }
+
+            next();
+        }
+    }
+
+    private boolean isGameOver() {
+        return state == WIN || state == DRAW;
+    }
+
+    private void turn() {
+        printer.printBoard(board);
+        printer.printTurn(currentPlayer);
+
+        Move move = chooser.choose(currentPlayer);
+
+        board.mark(move);
+
+        state = evaluator.evaluate();
+    }
+
+    private void next() {
+        currentPlayer = swapper.swap(currentPlayer);
+    }
+
+    private void gameOver() {
+        printer.printBoard(board);
+
         switch (state) {
-            case WON -> System.out.printf("%c Winner!", switcher.getCurrentPlayer().getMark());
-            case DRAWN -> System.out.printf("%c%c Draw!", PLAYER_1.getMark(), PLAYER_2.getMark());
+            case WIN -> printer.printWin(currentPlayer);
+            case DRAW -> printer.printDraw();
         }
     }
 }

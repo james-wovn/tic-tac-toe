@@ -2,23 +2,19 @@ package com.jamesball.learn.tictactoe;
 
 public class Move {
 
-    private int square;
-    private PlayerMark mark;
+    private final PlayerMark mark;
+    private final int square;
 
-    public Move(int square, PlayerMark mark) {
-        this.square = square;
+    public Move(PlayerMark mark, int square) {
         this.mark = mark;
-    }
-
-    public int getSquare() {
-        return square;
+        this.square = square;
     }
 
     public PlayerMark getMark() {
         return mark;
     }
 
-    public void setMark(PlayerMark mark) {
-        this.mark = mark;
+    public int getSquare() {
+        return square;
     }
 }

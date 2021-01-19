@@ -12,10 +12,10 @@ public class MoveAskerTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9})
-    public void whenAskToSelectSquare_thenReturnInput(int square) {
+    public void whenInputEntered_thenReturnInputExactly(int square) {
         System.setIn(new ByteArrayInputStream("%d".formatted(square).getBytes()));
 
-        MoveAsker asker = new MoveAsker(System.in, System.out);
+        MoveAsker asker = new MoveAsker();
 
         assertEquals("%d".formatted(square), asker.ask(anyString()));
     }

@@ -1,9 +1,14 @@
 package com.jamesball.learn.tictactoe;
 
 import static com.jamesball.learn.tictactoe.GameState.*;
-import static com.jamesball.learn.tictactoe.PlayerMark.UNMARKED;
 
 public class BoardEvaluator {
+
+    private Board board;
+
+    public BoardEvaluator(Board board) {
+        this.board = board;
+    }
 
     private static final int[][] COMBINATIONS = new int[][]{
             // rows
@@ -19,23 +24,35 @@ public class BoardEvaluator {
             {2, 4, 6}
     };
 
-    public BoardEvaluator() {
+    public GameState evaluate() {
+        if (isWin()) {
+            return WIN;
+        }
+        else if (isDraw()) {
+            return DRAW;
+        }
+        else {
+            return IN_PLAY;
+        }
     }
 
-    public GameState evaluate(Board board) {
-        if (isWin(board)) {
-            return WON;
-        }
-        else if (isDraw(board)) {
-            return DRAWN;
-        }
+    private boolean isWin() {
+        boolean isWin;
 
-        return IN_PROGRESS;
-    }
-
-    private boolean isWin(Board board) {
         for (int[] combination : COMBINATIONS) {
-            if (isCombinationComplete(board, combination)) {
+            isWin = true;
+
+            PlayerMark firstMark = board.getMark(combination[0]);
+
+            if (firstMark == null) {
+                continue;
+            }
+
+            for (int position = 1; position < combination.length && isWin; position++) {
+                isWin = board.getMark(combination[position]) == firstMark;
+            }
+
+            if (isWin) {
                 return true;
             }
         }
@@ -43,21 +60,9 @@ public class BoardEvaluator {
         return false;
     }
 
-    private boolean isDraw(Board board) {
-        for (int square = 0; square < board.getSquares().length; square++)
-            if (board.getSquare(square) == UNMARKED) {
-                return false;
-        }
-
-        return true;
-    }
-
-    private boolean isCombinationComplete(Board board, int[] combination) {
-        PlayerMark firstMark = board.getSquare(combination[0]);
-
-        for (int square : combination) {
-            PlayerMark mark = board.getSquare(square);
-            if (mark == UNMARKED || mark != firstMark) {
+    private boolean isDraw() {
+        for (int square = 0; square < board.getSize(); square++) {
+            if (!board.isMarked(square)) {
                 return false;
             }
         }
