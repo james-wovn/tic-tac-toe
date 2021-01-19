@@ -1,193 +1,222 @@
 package com.jamesball.learn.tictactoe;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.jamesball.learn.tictactoe.GameState.*;
 import static com.jamesball.learn.tictactoe.PlayerMark.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class BoardEvaluatorTest {
 
+    private AutoCloseable closeable;
+    
+    @Mock
     private Board board;
+    
+    @InjectMocks
     private BoardEvaluator evaluator;
-
+    
     @BeforeEach
     public void beforeEach() {
-        board = mock(Board.class);
-        evaluator = new BoardEvaluator();
+        closeable = MockitoAnnotations.openMocks(this);
+    }
+    
+    @AfterEach
+    public void afterEach() throws Exception {
+        closeable.close();
     }
 
     @Test
     public void whenTopRowIsComplete_thenGameIsWon() {
-        when(board.getSquare(0)).thenReturn(PLAYER_1);
-        when(board.getSquare(1)).thenReturn(PLAYER_1);
-        when(board.getSquare(2)).thenReturn(PLAYER_1);
-        when(board.getSquare(3)).thenReturn(UNMARKED);
-        when(board.getSquare(4)).thenReturn(UNMARKED);
-        when(board.getSquare(5)).thenReturn(UNMARKED);
-        when(board.getSquare(6)).thenReturn(UNMARKED);
-        when(board.getSquare(7)).thenReturn(UNMARKED);
-        when(board.getSquare(8)).thenReturn(UNMARKED);
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(0, 1, 2));
 
-        assertEquals(WON, evaluator.evaluate(board));
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
+
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
+
+            return null;
+        });
+
+        assertEquals(WIN, evaluator.evaluate());
     }
 
     @Test
     public void whenMiddleRowIsComplete_thenGameIsWon() {
-        when(board.getSquare(0)).thenReturn(UNMARKED);
-        when(board.getSquare(1)).thenReturn(UNMARKED);
-        when(board.getSquare(2)).thenReturn(UNMARKED);
-        when(board.getSquare(3)).thenReturn(PLAYER_1);
-        when(board.getSquare(4)).thenReturn(PLAYER_1);
-        when(board.getSquare(5)).thenReturn(PLAYER_1);
-        when(board.getSquare(6)).thenReturn(UNMARKED);
-        when(board.getSquare(7)).thenReturn(UNMARKED);
-        when(board.getSquare(8)).thenReturn(UNMARKED);
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(3, 4, 5));
 
-        assertEquals(WON, evaluator.evaluate(board));
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
+
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
+
+            return null;
+        });
+
+        assertEquals(WIN, evaluator.evaluate());
     }
 
     @Test
     public void whenBottomRowIsComplete_thenGameIsWon() {
-        when(board.getSquare(0)).thenReturn(UNMARKED);
-        when(board.getSquare(1)).thenReturn(UNMARKED);
-        when(board.getSquare(2)).thenReturn(UNMARKED);
-        when(board.getSquare(3)).thenReturn(UNMARKED);
-        when(board.getSquare(4)).thenReturn(UNMARKED);
-        when(board.getSquare(5)).thenReturn(UNMARKED);
-        when(board.getSquare(6)).thenReturn(PLAYER_1);
-        when(board.getSquare(7)).thenReturn(PLAYER_1);
-        when(board.getSquare(8)).thenReturn(PLAYER_1);
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(6, 7, 8));
 
-        assertEquals(WON, evaluator.evaluate(board));
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
+
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
+
+            return null;
+        });
+
+        assertEquals(WIN, evaluator.evaluate());
     }
 
     @Test
     public void whenLeftColumnIsComplete_thenGameIsWon() {
-        when(board.getSquare(0)).thenReturn(PLAYER_1);
-        when(board.getSquare(1)).thenReturn(UNMARKED);
-        when(board.getSquare(2)).thenReturn(UNMARKED);
-        when(board.getSquare(3)).thenReturn(PLAYER_1);
-        when(board.getSquare(4)).thenReturn(UNMARKED);
-        when(board.getSquare(5)).thenReturn(UNMARKED);
-        when(board.getSquare(6)).thenReturn(PLAYER_1);
-        when(board.getSquare(7)).thenReturn(UNMARKED);
-        when(board.getSquare(8)).thenReturn(UNMARKED);
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(0, 3, 6));
 
-        assertEquals(WON, evaluator.evaluate(board));
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
+
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
+
+            return null;
+        });
+
+        assertEquals(WIN, evaluator.evaluate());
     }
 
     @Test
     public void whenMiddleColumnIsComplete_thenGameIsWon() {
-        when(board.getSquare(0)).thenReturn(UNMARKED);
-        when(board.getSquare(1)).thenReturn(PLAYER_1);
-        when(board.getSquare(2)).thenReturn(UNMARKED);
-        when(board.getSquare(3)).thenReturn(UNMARKED);
-        when(board.getSquare(4)).thenReturn(PLAYER_1);
-        when(board.getSquare(5)).thenReturn(UNMARKED);
-        when(board.getSquare(6)).thenReturn(UNMARKED);
-        when(board.getSquare(7)).thenReturn(PLAYER_1);
-        when(board.getSquare(8)).thenReturn(UNMARKED);
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(1, 4, 7));
 
-        assertEquals(WON, evaluator.evaluate(board));
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
+
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
+
+            return null;
+        });
+
+        assertEquals(WIN, evaluator.evaluate());
     }
 
     @Test
     public void whenRightColumnIsComplete_thenGameIsWon() {
-        when(board.getSquare(0)).thenReturn(UNMARKED);
-        when(board.getSquare(1)).thenReturn(UNMARKED);
-        when(board.getSquare(2)).thenReturn(PLAYER_1);
-        when(board.getSquare(3)).thenReturn(UNMARKED);
-        when(board.getSquare(4)).thenReturn(UNMARKED);
-        when(board.getSquare(5)).thenReturn(PLAYER_1);
-        when(board.getSquare(6)).thenReturn(UNMARKED);
-        when(board.getSquare(7)).thenReturn(UNMARKED);
-        when(board.getSquare(8)).thenReturn(PLAYER_1);
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(2, 5, 8));
 
-        assertEquals(WON, evaluator.evaluate(board));
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
+
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
+
+            return null;
+        });
+
+        assertEquals(WIN, evaluator.evaluate());
     }
 
     @Test
-    public void whenTopLeftDiagonalIsComplete_thenGameIsWon() {
-        when(board.getSquare(0)).thenReturn(PLAYER_1);
-        when(board.getSquare(1)).thenReturn(UNMARKED);
-        when(board.getSquare(2)).thenReturn(UNMARKED);
-        when(board.getSquare(3)).thenReturn(UNMARKED);
-        when(board.getSquare(4)).thenReturn(PLAYER_1);
-        when(board.getSquare(5)).thenReturn(UNMARKED);
-        when(board.getSquare(6)).thenReturn(UNMARKED);
-        when(board.getSquare(7)).thenReturn(UNMARKED);
-        when(board.getSquare(8)).thenReturn(PLAYER_1);
+    public void whenDownwardDiagonalIsComplete_thenGameIsWon() {
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(0, 4, 8));
 
-        assertEquals(WON, evaluator.evaluate(board));
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
+
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
+
+            return null;
+        });
+
+        assertEquals(WIN, evaluator.evaluate());
     }
 
     @Test
-    public void whenBottomLeftDiagonalIsComplete_thenGameIsWon() {
-        when(board.getSquare(0)).thenReturn(UNMARKED);
-        when(board.getSquare(1)).thenReturn(UNMARKED);
-        when(board.getSquare(2)).thenReturn(PLAYER_1);
-        when(board.getSquare(3)).thenReturn(UNMARKED);
-        when(board.getSquare(4)).thenReturn(PLAYER_1);
-        when(board.getSquare(5)).thenReturn(UNMARKED);
-        when(board.getSquare(6)).thenReturn(PLAYER_1);
-        when(board.getSquare(7)).thenReturn(UNMARKED);
-        when(board.getSquare(8)).thenReturn(UNMARKED);
+    public void whenUpwardDiagonalIsComplete_thenGameIsWon() {
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(2, 4, 6));
 
-        assertEquals(WON, evaluator.evaluate(board));
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
+
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
+
+            return null;
+        });
+
+        assertEquals(WIN, evaluator.evaluate());
     }
 
     @Test
-    public void whenAllSquaresAreUnmarked_thenGameIsInProgress() {
-        when(board.getSquares()).thenReturn(new PlayerMark[9]);
+    public void whenAllSquaresAreMarkedAndNoCombinationIsComplete_thenGameIsDrawn() {
+        final Set<Integer> xMarkedSquares = new HashSet<>(Arrays.asList(0, 1, 4, 5, 6));
 
-        when(board.getSquare(0)).thenReturn(UNMARKED);
-        when(board.getSquare(1)).thenReturn(UNMARKED);
-        when(board.getSquare(2)).thenReturn(UNMARKED);
-        when(board.getSquare(3)).thenReturn(UNMARKED);
-        when(board.getSquare(4)).thenReturn(UNMARKED);
-        when(board.getSquare(5)).thenReturn(UNMARKED);
-        when(board.getSquare(6)).thenReturn(UNMARKED);
-        when(board.getSquare(7)).thenReturn(UNMARKED);
-        when(board.getSquare(8)).thenReturn(UNMARKED);
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
 
-        assertEquals(IN_PROGRESS, evaluator.evaluate(board));
+            if (xMarkedSquares.contains(argument)) {
+                return X;
+            }
+
+            return O;
+        });
+
+        when(board.getSize()).thenReturn(9);
+        when(board.isMarked(anyInt())).thenReturn(true);
+
+        assertEquals(DRAW, evaluator.evaluate());
     }
 
     @Test
-    public void whenNoCombinationIsComplete_thenGameIsInProgress() {
-        when(board.getSquares()).thenReturn(new PlayerMark[9]);
+    public void whenNoCombinationIsComplete_thenGameIsInPlay() {
+        final Set<Integer> markedSquares = new HashSet<>(Arrays.asList(0, 2, 3, 4, 7));
 
-        when(board.getSquare(0)).thenReturn(PLAYER_1);
-        when(board.getSquare(1)).thenReturn(UNMARKED);
-        when(board.getSquare(2)).thenReturn(PLAYER_1);
-        when(board.getSquare(3)).thenReturn(PLAYER_1);
-        when(board.getSquare(4)).thenReturn(PLAYER_1);
-        when(board.getSquare(5)).thenReturn(UNMARKED);
-        when(board.getSquare(6)).thenReturn(UNMARKED);
-        when(board.getSquare(7)).thenReturn(PLAYER_1);
-        when(board.getSquare(8)).thenReturn(UNMARKED);
+        when(board.getMark(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
 
-        assertEquals(IN_PROGRESS, evaluator.evaluate(board));
-    }
+            if (markedSquares.contains(argument)) {
+                return X;
+            }
 
-    @Test
-    public void whenNoUnmarkedSquareAndNoCombinationIsComplete_thenGameIsDrawn() {
-        when(board.getSquares()).thenReturn(new PlayerMark[9]);
+            return null;
+        });
 
-        when(board.getSquare(0)).thenReturn(PLAYER_2);
-        when(board.getSquare(1)).thenReturn(PLAYER_2);
-        when(board.getSquare(2)).thenReturn(PLAYER_1);
-        when(board.getSquare(3)).thenReturn(PLAYER_1);
-        when(board.getSquare(4)).thenReturn(PLAYER_2);
-        when(board.getSquare(5)).thenReturn(PLAYER_2);
-        when(board.getSquare(6)).thenReturn(PLAYER_2);
-        when(board.getSquare(7)).thenReturn(PLAYER_1);
-        when(board.getSquare(8)).thenReturn(PLAYER_1);
+        when(board.getSize()).thenReturn(9);
+        when(board.isMarked(anyInt())).thenAnswer(invocation -> {
+            Integer argument = invocation.getArgument(0);
 
-        assertEquals(DRAWN, evaluator.evaluate(board));
+            return markedSquares.contains(argument);
+        });
+
+        assertEquals(IN_PLAY, evaluator.evaluate());
     }
 }

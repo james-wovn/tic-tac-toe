@@ -4,36 +4,34 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MoveParserTest {
 
-    private Board board;
     private MoveParser parser;
 
     @BeforeEach
     public void beforeEach() {
-        board = mock(Board.class);
-        parser = new MoveParser(board);
+        parser = new MoveParser();
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"1", "2", "3", "4", "5", "6", "7", "8", "9"})
-    public void whenInputIsValid_thenReturnTrue(String input) {
-        when(board.isUnmarked(anyInt())).thenReturn(true);
-
-        assertTrue(parser.validate(input));
+    public void whenInputIsParsable_thenReturnTrue(String input) {
+        assertTrue(parser.isParsable(input));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", " 1 ", "0", "10", "a", "1a"})
-    public void whenInputInvalid_thenReturnFalse(String input) {
-        when(board.isUnmarked(anyInt())).thenReturn(false);
+    public void whenInputIsNotParsable_thenReturnFalse(String input) {
+        assertFalse(parser.isParsable(input));
+    }
 
-        assertFalse(parser.validate(input));
+    @ParameterizedTest
+    @ValueSource(strings = {"1", "2", "3", "4", "5", "6", "7", "8", "9"})
+    public void whenInputIsParsable_thenReturnSquare(String input) {
+        int square = parser.parse(input);
+
+        assertEquals(Integer.parseInt(input) - 1, square);
     }
 }

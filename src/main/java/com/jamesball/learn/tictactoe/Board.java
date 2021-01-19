@@ -1,47 +1,28 @@
 package com.jamesball.learn.tictactoe;
 
-import java.util.Arrays;
-
-import static com.jamesball.learn.tictactoe.PlayerMark.*;
-
 public class Board {
 
-    private final PlayerMark[] squares = new PlayerMark[]{
-            UNMARKED, UNMARKED, UNMARKED,
-            UNMARKED, UNMARKED, UNMARKED,
-            UNMARKED, UNMARKED, UNMARKED
-    };
+    private static final int NUMBER_OF_SQUARES = 9;
 
-    public Board() {
+    private final PlayerMark[] board = new PlayerMark[NUMBER_OF_SQUARES];
+
+    public int getSize() {
+        return board.length;
     }
 
-    public PlayerMark[] getSquares() {
-        return squares;
+    public PlayerMark[] getBoard() {
+        return board;
     }
 
-    public PlayerMark getSquare(int square) {
-        return squares[square];
+    public PlayerMark getMark(int square) {
+        return board[square];
     }
 
-    public void markSquare(Move move) {
-        squares[move.getSquare()] = move.getMark();
+    public boolean isMarked(int square) {
+        return board[square] != null;
     }
 
-    public int[] unmarkedSquares() {
-        int[] unmarkedSquares = new int[]{};
-
-        for (int square = 0; square < squares.length; square++) {
-            if (isUnmarked(square)) {
-                int[] unmarkedSquaresCopy = new int[unmarkedSquares.length + 1];
-                unmarkedSquaresCopy[unmarkedSquares.length] = square;
-                unmarkedSquares = unmarkedSquaresCopy;
-            }
-        }
-
-        return unmarkedSquares;
-    }
-
-    public boolean isUnmarked(int square) {
-        return squares[square] == UNMARKED;
+    public void mark(Move move) {
+        board[move.getSquare()] = move.getMark();
     }
 }
