@@ -40,7 +40,7 @@ public class Game {
     }
 
     private boolean isGameOver() {
-        return state == WIN || state == DRAW;
+        return !state.equals(IN_PLAY);
     }
 
     private void turn() {
