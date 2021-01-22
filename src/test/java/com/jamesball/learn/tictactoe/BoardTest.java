@@ -21,7 +21,7 @@ public class BoardTest {
     public void whenIsMarked_thenReturnTrue(int square) {
         Move move = new Move(X, square);
 
-        board.mark(move);
+        board.addMove(move);
 
         assertTrue(board.isMarked(square));
     }
@@ -37,7 +37,7 @@ public class BoardTest {
     public void whenMark_thenSquareIsMarked(int square) {
         Move move = new Move(X, square);
 
-        board.mark(move);
+        board.addMove(move);
 
         assertEquals(X, board.getMark(square));
     }

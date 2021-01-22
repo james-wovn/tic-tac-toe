@@ -6,7 +6,7 @@ import static com.jamesball.learn.tictactoe.PlayerMark.*;
 public class Game {
 
     private Board board = new Board();
-    private BoardEvaluator evaluator = new BoardEvaluator(board);
+    private BoardEvaluator evaluator = new BoardEvaluator();
     private MoveChooser chooser = new MoveChooser(board);
     private MessagePrinter printer = new MessagePrinter();
     private PlayerSwapper swapper = new PlayerSwapper();
@@ -49,9 +49,9 @@ public class Game {
 
         Move move = chooser.choose(currentPlayer);
 
-        board.mark(move);
+        board.addMove(move);
 
-        state = evaluator.evaluate();
+        state = evaluator.evaluate(board);
     }
 
     private void next() {

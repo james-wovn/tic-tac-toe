@@ -2,16 +2,23 @@ package com.jamesball.learn.tictactoe;
 
 public class Board {
 
-    private static final int NUMBER_OF_SQUARES = 9;
+    private final PlayerMark[] board = new PlayerMark[9];
 
-    private final PlayerMark[] board = new PlayerMark[NUMBER_OF_SQUARES];
+    public Board() {
+    }
+
+    public Board(PlayerMark[] board) {
+        System.arraycopy(board, 0, this.board, 0, this.board.length);
+    }
 
     public int getSize() {
         return board.length;
     }
 
     public PlayerMark[] getBoard() {
-        return board;
+        PlayerMark[] copy = new PlayerMark[this.board.length];
+        System.arraycopy(this.board, 0, copy, 0, copy.length);
+        return copy;
     }
 
     public PlayerMark getMark(int square) {
@@ -22,7 +29,11 @@ public class Board {
         return board[square] != null;
     }
 
-    public void mark(Move move) {
+    public void addMove(Move move) {
         board[move.getSquare()] = move.getMark();
+    }
+
+    public Board clone() {
+        return new Board(this.board);
     }
 }
