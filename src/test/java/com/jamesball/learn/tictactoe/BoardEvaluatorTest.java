@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,16 +21,16 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class BoardEvaluatorTest {
 
+    private BoardEvaluator evaluator;
+    
     private AutoCloseable closeable;
     
     @Mock
     private Board board;
     
-    @InjectMocks
-    private BoardEvaluator evaluator;
-    
     @BeforeEach
     public void beforeEach() {
+        evaluator = new BoardEvaluator();
         closeable = MockitoAnnotations.openMocks(this);
     }
     
@@ -54,7 +53,7 @@ public class BoardEvaluatorTest {
             return null;
         });
 
-        assertEquals(WIN, evaluator.evaluate());
+        assertEquals(WIN, evaluator.evaluate(board));
     }
 
     @Test
@@ -71,7 +70,7 @@ public class BoardEvaluatorTest {
             return null;
         });
 
-        assertEquals(WIN, evaluator.evaluate());
+        assertEquals(WIN, evaluator.evaluate(board));
     }
 
     @Test
@@ -88,7 +87,7 @@ public class BoardEvaluatorTest {
             return null;
         });
 
-        assertEquals(WIN, evaluator.evaluate());
+        assertEquals(WIN, evaluator.evaluate(board));
     }
 
     @Test
@@ -105,7 +104,7 @@ public class BoardEvaluatorTest {
             return null;
         });
 
-        assertEquals(WIN, evaluator.evaluate());
+        assertEquals(WIN, evaluator.evaluate(board));
     }
 
     @Test
@@ -122,7 +121,7 @@ public class BoardEvaluatorTest {
             return null;
         });
 
-        assertEquals(WIN, evaluator.evaluate());
+        assertEquals(WIN, evaluator.evaluate(board));
     }
 
     @Test
@@ -139,7 +138,7 @@ public class BoardEvaluatorTest {
             return null;
         });
 
-        assertEquals(WIN, evaluator.evaluate());
+        assertEquals(WIN, evaluator.evaluate(board));
     }
 
     @Test
@@ -156,7 +155,7 @@ public class BoardEvaluatorTest {
             return null;
         });
 
-        assertEquals(WIN, evaluator.evaluate());
+        assertEquals(WIN, evaluator.evaluate(board));
     }
 
     @Test
@@ -173,7 +172,7 @@ public class BoardEvaluatorTest {
             return null;
         });
 
-        assertEquals(WIN, evaluator.evaluate());
+        assertEquals(WIN, evaluator.evaluate(board));
     }
 
     @Test
@@ -193,7 +192,7 @@ public class BoardEvaluatorTest {
         when(board.getSize()).thenReturn(9);
         when(board.isMarked(anyInt())).thenReturn(true);
 
-        assertEquals(DRAW, evaluator.evaluate());
+        assertEquals(DRAW, evaluator.evaluate(board));
     }
 
     @Test
@@ -217,6 +216,6 @@ public class BoardEvaluatorTest {
             return markedSquares.contains(argument);
         });
 
-        assertEquals(IN_PLAY, evaluator.evaluate());
+        assertEquals(IN_PLAY, evaluator.evaluate(board));
     }
 }

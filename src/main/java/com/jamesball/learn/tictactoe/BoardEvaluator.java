@@ -4,12 +4,6 @@ import static com.jamesball.learn.tictactoe.GameState.*;
 
 public class BoardEvaluator {
 
-    private Board board;
-
-    public BoardEvaluator(Board board) {
-        this.board = board;
-    }
-
     private static final int[][] COMBINATIONS = new int[][]{
             // rows
             {0, 1, 2},
@@ -24,11 +18,11 @@ public class BoardEvaluator {
             {2, 4, 6}
     };
 
-    public GameState evaluate() {
-        if (isWin()) {
+    public GameState evaluate(Board board) {
+        if (isWin(board)) {
             return WIN;
         }
-        else if (isDraw()) {
+        else if (isDraw(board)) {
             return DRAW;
         }
         else {
@@ -36,7 +30,7 @@ public class BoardEvaluator {
         }
     }
 
-    private boolean isWin() {
+    private boolean isWin(Board board) {
         boolean isWin;
 
         for (int[] combination : COMBINATIONS) {
@@ -60,7 +54,7 @@ public class BoardEvaluator {
         return false;
     }
 
-    private boolean isDraw() {
+    private boolean isDraw(Board board) {
         for (int square = 0; square < board.getSize(); square++) {
             if (!board.isMarked(square)) {
                 return false;
