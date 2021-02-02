@@ -39,13 +39,13 @@ public class GameTest {
     @Test
     public void whenXCompletesTheTopRowIn3Moves_thenXWinner() {
         // Terminal board position should be:
-        //         +-----+-----+-----+
-        //         |  X  |  X  |  X  |
-        //         +-----+-----+-----+
-        //         |     |     |     |
-        //         +-----+-----+-----+
-        //         |  O  |  O  |     |
-        //         +-----+-----+-----+
+        // +-----+-----+-----+
+        // |  X  |  X  |  X  |
+        // +-----+-----+-----+
+        // |     |     |     |
+        // +-----+-----+-----+
+        // |  O  |  O  |     |
+        // +-----+-----+-----+
 
         when(chooser.choose(any(PlayerMark.class))).thenReturn(
                 new Move(X, 0),
@@ -68,13 +68,13 @@ public class GameTest {
     @Test
     public void whenOCompletesTheRightColumnIn3Moves_thenOWinner() {
         // Terminal board position should be:
-        //         +-----+-----+-----+
-        //         |  X  |     |  O  |
-        //         +-----+-----+-----+
-        //         |  X  |  X  |  O  |
-        //         +-----+-----+-----+
-        //         |     |     |  O  |
-        //         +-----+-----+-----+
+        // +-----+-----+-----+
+        // |  X  |     |  O  |
+        // +-----+-----+-----+
+        // |  X  |  X  |  O  |
+        // +-----+-----+-----+
+        // |     |     |  O  |
+        // +-----+-----+-----+
 
         when(chooser.choose(any(PlayerMark.class))).thenReturn(
                 new Move(X, 0),
@@ -98,13 +98,13 @@ public class GameTest {
     @Test
     public void whenAllSquaresMarkedAndNoCombinationIsComplete_thenXODraw() {
         // Terminal board position should be:
-        //         +-----+-----+-----+
-        //         |  X  |  X  |  O  |
-        //         +-----+-----+-----+
-        //         |  O  |  X  |  X  |
-        //         +-----+-----+-----+
-        //         |  X  |  O  |  O  |
-        //         +-----+-----+-----+
+        // +-----+-----+-----+
+        // |  X  |  X  |  O  |
+        // +-----+-----+-----+
+        // |  O  |  X  |  X  |
+        // +-----+-----+-----+
+        // |  X  |  O  |  O  |
+        // +-----+-----+-----+
 
         when(chooser.choose(any(PlayerMark.class))).thenReturn(
                 new Move(X, 0),
